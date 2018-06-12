@@ -58,8 +58,7 @@ angular.module( "wp", [
  */
 .directive( "havePosts", [ "WP", function( WP ) {
 	return {
-		restrict: "E",
-		replace: true,
+		restrict: "EAC",
 		transclude: true,
 		scope: {
 			postType: '@',
@@ -155,20 +154,18 @@ angular.module( "wp", [
 		template: function( tElement, tAttrs ) {
 			try {
 				if ( !! angular.module( 'infinite-scroll' ) ) {
-					return "<div class=\"have-posts\">"
-							+ "<div infinite-scroll=\"load()\""
+					return "<div infinite-scroll=\"load()\""
 							+ " infinite-scroll-immediate-check=\"false\""
 							+ " infinite-scroll-distance=\"1\">"
 							+ "<article class=\"{{ postType }}"
 							+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
 							+ "<div ng-transclude></div></article>"
-							+ "</div></div>";
+							+ "</div>";
 				}
 			} catch( e ) {
 				try {
 					if ( !! angular.module( 'ionic' ) ) {
-						return "<div class=\"have-posts\">"
-								+ "<article class=\"{{ postType }}"
+						return "<article class=\"{{ postType }}"
 								+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
 								+ "<div ng-transclude></div></article>"
 								+ "<ion-infinite-scroll"
@@ -176,15 +173,12 @@ angular.module( "wp", [
 								+ " on-infinite=\"load()\""
 								+ " immediate-check=\"false\""
 								+ " distance=\"1%\">"
-								+ "</ion-infinite-scroll>"
-								+ "</div>";
+								+ "</ion-infinite-scroll>";
 					}
 				} catch( e ) {
-					return "<div class=\"have-posts\">"
-							+ "<article class=\"{{ postType }}"
+					return "<article class=\"{{ postType }}"
 							+ " post-{{ post.id }}\" ng-repeat=\"post in posts\">"
-							+ "<div ng-transclude></div></article>"
-							+ "</div>";
+							+ "<div ng-transclude></div></article>";
 				}
 			}
 		}
@@ -233,8 +227,7 @@ angular.module( "wp", [
  */
 .directive( "theTitle", [ "$sce", function( $sce ) {
 	return{
-		restrict:'E',
-		replace: true,
+		restrict:'EAC',
 		require : '^havePosts',
 		transclude: true,
 		compile: function( tElement, tAttrs, transclude ) {
@@ -254,11 +247,10 @@ angular.module( "wp", [
 		},
 		template: function( tElement, tAttrs ) {
 			if ( tAttrs.href ) {
-				return "<div class=\"the-title\">"
-						+ "<a ng-href=\"{{ permalink }}\" ng-bind-html=\"title\">"
-							+ "{{ title }}</a></div>";
+				return "<a ng-href=\"{{ permalink }}\" ng-bind-html=\"title\">"
+					   + "{{ title }}</a>";
 			} else {
-				return "<div class=\"the-title\" ng-bind-html=\"title\">"
+				return "<div ng-bind-html=\"title\">"
 						+ "{{ title }}</div>";
 			}
 		}
@@ -285,8 +277,7 @@ angular.module( "wp", [
  */
 .directive( "theContent", [ "$sce", function( $sce ) {
 	return{
-		restrict:'E',
-		replace: true,
+		restrict:'EAC',
 		require : '^havePosts',
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
@@ -296,7 +287,7 @@ angular.module( "wp", [
 				}
 			}
 		},
-		template: "<div class=\"the-content\" ng-bind-html=\"content\">"
+		template: "<div ng-bind-html=\"content\">"
 						+ "{{ content }}</div>"
 	}
 } ] )
@@ -357,8 +348,7 @@ angular.module( "wp", [
  */
 .directive( "thePostThumbnail", [ function() {
 	return{
-		restrict:'E',
-		replace: true,
+		restrict:'EAC',
 		require : '^havePosts',
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
@@ -395,12 +385,10 @@ angular.module( "wp", [
 		},
 		template: function( tElement, tAttrs ) {
 			if ( tAttrs.href ) {
-				return "<div class=\"the-post-thumbnail\">"
-						+ "<a ng-href=\"{{ permalink }}\">"
-							+ "<img ng-src=\"{{ image_src }}\"></a></div>";
+				return "<a ng-href=\"{{ permalink }}\">"
+							+ "<img ng-src=\"{{ image_src }}\"></a>";
 			} else {
-				return "<div class=\"the-post-thumbnail\">"
-							+ "<img ng-src=\"{{ image_src }}\"></div>"
+				return "<img ng-src=\"{{ image_src }}\">";
 			}
 		}
 	}
@@ -426,8 +414,7 @@ angular.module( "wp", [
  */
 .directive( "theId", [ function() {
 	return{
-		restrict:'E',
-		replace: true,
+		restrict:'EAC',
 		require : '^havePosts',
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
@@ -436,7 +423,7 @@ angular.module( "wp", [
 				}
 			}
 		},
-		template: "<div class=\"the-id\">{{ post_id }}</div>"
+		template: "{{ post_id }}"
 	}
 } ] )
 
@@ -461,8 +448,7 @@ angular.module( "wp", [
  */
 .directive( "theExcerpt", [ '$sce', function( $sce ) {
 	return{
-		restrict:'E',
-		replace: true,
+		restrict:'EAC',
 		require : '^havePosts',
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
@@ -472,7 +458,7 @@ angular.module( "wp", [
 				}
 			}
 		},
-		template: "<div class=\"the-excerpt\" ng-bind-html=\"excerpt\">"
+		template: "<div ng-bind-html=\"excerpt\">"
 						+ "{{ excerpt }}</div>"
 	}
 } ] )
@@ -514,8 +500,7 @@ angular.module( "wp", [
  */
 .directive( "theDate", [ function() {
 	return{
-		restrict:'E',
-		replace: true,
+		restrict:'EAC',
 		require : '^havePosts',
 		compile: function( tElement, tAttrs, transclude ) {
 			return {
@@ -530,7 +515,7 @@ angular.module( "wp", [
 				}
 			}
 		},
-		template: "<div class=\"the-date\">{{ date | date: format }}</div>"
+		template: "{{ date | date: format }}"
 	}
 } ] )
 

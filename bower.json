@@ -3,7 +3,8 @@
   "description": "WP-API client for AngularJS",
   "main": "build/wp-angular.js",
   "authors": [
-    "Takayuki Miyauchi"
+    "Takayuki Miyauchi",
+	"Auban le Grelle"
   ],
   "license": "MIT",
   "homepage": "https://github.com/miya0001/wp-angularjs",

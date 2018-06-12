@@ -1,7 +1,7 @@
 {
   "name": "wp-angularjs",
   "description": "WP-API client for AngularJS",
-  "main": "build/wp-angular.min.js",
+  "main": "build/wp-angular.js",
   "authors": [
     "Takayuki Miyauchi"
   ],
